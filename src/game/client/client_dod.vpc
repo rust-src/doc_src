@@ -37,6 +37,9 @@ $Project "Client (DOD)"
 		-$File	"history_resource.cpp"
 		-$File	"hud_hintdisplay.cpp"
 		
+		$File	"doc/menu_background.cpp"
+		$File	"doc/menu_background.h"
+
 		$File	"hud_voicestatus.cpp"
 
 		$File	"$SRCDIR\game\shared\playerclass_info_parse.cpp"

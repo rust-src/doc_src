@@ -137,14 +137,13 @@ public:
 	// Returns the DLL identifier
 	virtual CVarDLLIdentifier_t	GetDLLIdentifier() const;
 
-protected:
 	virtual void				CreateBase( const char *pName, const char *pHelpString = 0, 
 									int flags = 0 );
 
 	// Used internally by OneTimeInit to initialize/shutdown
 	virtual void				Init();
 	void						Shutdown();
-
+protected:
 	// Internal copy routine ( uses new operator from correct module )
 	char						*CopyString( const char *from );
 
@@ -284,7 +283,6 @@ public:
 	// Invoke the function
 	virtual void Dispatch( const CCommand &command );
 
-private:
 	// NOTE: To maintain backward compat, we have to be very careful:
 	// All public virtual methods must appear in the same order always
 	// since engine code will be calling into this code, which *does not match*

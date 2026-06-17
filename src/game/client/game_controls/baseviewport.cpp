@@ -56,6 +56,8 @@
 #include "replay/ienginereplay.h"
 #endif
 
+#include "doc/menu_background.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -222,6 +224,8 @@ CBaseViewport::CBaseViewport() : vgui::EditablePanel( NULL, "CBaseViewport")
 	}
 
 	m_OldSize[ 0 ] = m_OldSize[ 1 ] = -1;
+
+	m_pMainMenuPanel = NULL;
 }
 
 //-----------------------------------------------------------------------------
@@ -257,6 +261,18 @@ void CBaseViewport::OnScreenSizeChanged(int iOldWide, int iOldTall)
 	{
 		ShowPanel( PANEL_SPECGUI, true );
 	}
+
+	bool bRestartMainMenuVideo = false;
+
+	if (m_pMainMenuPanel)
+		bRestartMainMenuVideo = m_pMainMenuPanel->IsVideoPlaying();
+
+	m_pMainMenuPanel = new CMainMenu(NULL, NULL);
+	m_pMainMenuPanel->SetZPos(500);
+	m_pMainMenuPanel->SetVisible(false);
+
+	if (bRestartMainMenuVideo)
+		m_pMainMenuPanel->StartVideo();
 }
 
 void CBaseViewport::CreateDefaultPanels( void )
@@ -542,11 +558,21 @@ void CBaseViewport::RemoveAllPanels( void)
 	m_Panels.Purge();
 	m_pActivePanel = NULL;
 	m_pLastActivePanel = NULL;
+
+	if (m_pMainMenuPanel)
+	{
+		m_pMainMenuPanel->MarkForDeletion();
+		m_pMainMenuPanel = NULL;
+	}
 }
 
 CBaseViewport::~CBaseViewport()
 {
 	m_bInitialized = false;
+
+	if (!m_bHasParent && m_pMainMenuPanel)
+		m_pMainMenuPanel->MarkForDeletion();
+	m_pMainMenuPanel = NULL;
 
 	if ( gViewPortInterface == this )
 		gViewPortInterface = NULL;
@@ -582,6 +608,11 @@ void CBaseViewport::Start( IGameUIFuncs *pGameUIFuncs, IGameEventManager2 * pGam
 	m_GameEventManager->AddListener( this, "game_newmap", false );
 	
 	m_bInitialized = true;
+
+	m_pMainMenuPanel = new CMainMenu(NULL, NULL);
+	m_pMainMenuPanel->SetZPos(500);
+	m_pMainMenuPanel->SetVisible(false);
+	m_pMainMenuPanel->StartVideo();
 }
 
 /*
@@ -783,7 +814,23 @@ int CBaseViewport::GetDeathMessageStartHeight( void )
 {
 	return YRES(16);
 }
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CBaseViewport::StartMainMenuVideo()
+{
+	if (m_pMainMenuPanel)
+		m_pMainMenuPanel->StartVideo();
+}
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CBaseViewport::StopMainMenuVideo()
+{
+	if (m_pMainMenuPanel)
+		m_pMainMenuPanel->StopVideo();
+}
 void CBaseViewport::Paint()
 {
 	if ( cl_leveloverviewmarker.GetInt() > 0 )
