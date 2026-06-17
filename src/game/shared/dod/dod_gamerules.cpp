@@ -960,6 +960,10 @@ static CDODViewVectors g_DODViewVectors(
 
 	bool CDODGameRules::TeamFull( int team_id )
 	{
+		// Little trick to make large player counts work - Vvis :3 
+		if (gpGlobals->maxClients >= 64)
+			return false;
+
 		switch ( team_id )
 		{
 		case TEAM_ALLIES:
