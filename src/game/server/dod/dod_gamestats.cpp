@@ -43,6 +43,8 @@ int iDistanceStatWeapons[DOD_NUM_DISTANCE_STAT_WEAPONS] =
 	WEAPON_30CAL_UNDEPLOYED,
 	WEAPON_MG42,
 	WEAPON_MG42_UNDEPLOYED,
+	WEAPON_C96CARBINE,
+	WEAPON_TRENCHGUN
 };
 
 // Send hit/shots only for the following weapons
@@ -150,6 +152,7 @@ int iWeaponBucketDistances[DOD_NUM_WEAPON_DISTANCE_BUCKETS-1] =
 		"mp44_semiauto",		//WEAPON_MP44_SEMIAUTO,
 		"greasegun",					//WEAPON_GREASEGUN,
 		"c96carbine",					//WEAPON_C96CARBINE,
+		"trenchgun",					//WEAPON_M3,
 
 		0,		// end of list marker
 	};

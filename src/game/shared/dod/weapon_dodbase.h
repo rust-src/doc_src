@@ -140,7 +140,10 @@ typedef enum
 	WEAPON_BAR_SEMIAUTO,
 	WEAPON_MP44_SEMIAUTO,
 	WEAPON_C96CARBINE,
-		
+	
+	// Shotgun
+	WEAPON_TRENCHGUN,
+
 	WEAPON_MAX,		// number of weapons weapon index
 
 } DODWeaponID;

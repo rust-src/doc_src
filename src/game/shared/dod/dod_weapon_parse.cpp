@@ -61,6 +61,8 @@ void CDODWeaponInfo::Parse( KeyValues *pKeyValuesData, const char *szWeaponName 
 	m_flIdleInterval		= pKeyValuesData->GetFloat( "IdleInterval", 1.0 );
 	m_bCanDrop				= ( pKeyValuesData->GetInt( "CanDrop", 1 ) > 0 );
 	m_iBulletsPerShot		= pKeyValuesData->GetInt( "BulletsPerShot", 1 );
+
+	m_iBullets				= pKeyValuesData->GetInt("Bullets", 1);
 	
 	m_iHudClipHeight		= pKeyValuesData->GetInt( "HudClipHeight", 0 );
 	m_iHudClipBaseHeight	= pKeyValuesData->GetInt( "HudClipBaseHeight", 0 );
@@ -193,3 +195,57 @@ void CDODWeaponInfo::Parse( KeyValues *pKeyValuesData, const char *szWeaponName 
 	}
 }
 
+//=============================================================================
+// Console command to dump weapon info
+// Usage: weaponinfo <weapon_name>   (e.g. weaponinfo trenchgun)
+//=============================================================================
+
+CON_COMMAND(weaponinfo, "Prints weapon script data. Usage: weaponinfo <weaponname>")
+{
+	if (args.ArgC() < 2)
+	{
+		Msg("Usage: weaponinfo <weaponname> (example: weaponinfo trenchgun)\n");
+		return;
+	}
+
+	const char* pszWeaponName = args[1];
+
+	char wpnName[128];
+	if (Q_strnicmp(pszWeaponName, "weapon_", 7) != 0)
+	{
+		Q_snprintf(wpnName, sizeof(wpnName), "weapon_%s", pszWeaponName);
+	}
+	else
+	{
+		Q_strncpy(wpnName, pszWeaponName, sizeof(wpnName));
+	}
+
+	WEAPON_FILE_INFO_HANDLE hWpnInfo = LookupWeaponInfoSlot(wpnName);
+	if (hWpnInfo == GetInvalidWeaponInfoHandle())
+	{
+		Msg("Weapon '%s' not found!\n", wpnName);
+		return;
+	}
+
+	CDODWeaponInfo* pInfo = static_cast<CDODWeaponInfo*>(GetFileWeaponInfoFromHandle(hWpnInfo));
+	if (!pInfo)
+	{
+		Msg("Failed to get weapon info for %s\n", wpnName);
+		return;
+	}
+
+	Msg("=== Weapon Info: %s ===\n", wpnName);
+	Msg("Name:                     %s\n", pInfo->szPrintName);
+	Msg("Bullets per shot:         %d\n", pInfo->m_iBulletsPerShot);
+	Msg("Bullets (shotgun):         %d\n", pInfo->m_iBullets);
+	Msg("Damage:                   %d\n", pInfo->m_iDamage);
+	Msg("Range:                    %.0f\n", pInfo->m_flRange);
+	Msg("Spread:                   %.4f\n", pInfo->m_flAccuracy);
+	Msg("Penetration:              %.2f\n", pInfo->m_flPenetration);
+	Msg("Fire Delay:               %.3f\n", pInfo->m_flFireDelay);
+	Msg("Weapon Type:              %d\n", pInfo->m_WeaponType);
+	Msg("Can Drop:                 %s\n", pInfo->m_bCanDrop ? "Yes" : "No");
+	Msg("Default Ammo Clips:       %d\n", pInfo->m_iDefaultAmmoClips);
+	Msg("Ammo Pickup Clips:        %d\n", pInfo->m_iAmmoPickupClips);
+	Msg("Tracer Type:              %d\n", pInfo->m_iTracerType);
+}

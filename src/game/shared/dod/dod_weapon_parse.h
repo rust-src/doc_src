@@ -45,6 +45,10 @@ public:
 	int		m_iDamage;
 	int		m_flPenetration;
 	int		m_iBulletsPerShot;
+
+	// CSS shotgun stuff
+	int		m_iBullets;
+
 	int		m_iMuzzleFlashType;
 	float   m_flMuzzleFlashScale;
 

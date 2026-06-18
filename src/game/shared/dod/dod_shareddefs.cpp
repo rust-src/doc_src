@@ -155,9 +155,9 @@ const char * s_WeaponAliasInfo[] =
 
 	"bar_semiauto",			//WEAPON_BAR_SEMIAUTO,
 	"mp44_semiauto",		//WEAPON_MP44_SEMIAUTO,
-	"greasegun",			//WEAPON_GREASEGUN_AUTO,
 	"c96carbine",			//WEAPON_C96CARBINE,
 
+	"trenchgun", 				//WEAPON_M3,
 	NULL,		// end of list marker
 };
 

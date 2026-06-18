@@ -247,30 +247,44 @@ void FX_FireBullets(
 	lagcompensation->StartLagCompensation( pPlayer, pPlayer->GetCurrentCommand() );
 #endif
 
-	RandomSeed( iSeed );
-
-	float x, y;
-	do
-	{
-		x = random->RandomFloat( -0.5, 0.5 ) + random->RandomFloat( -0.5, 0.5 );
-		y = random->RandomFloat( -0.5, 0.5 ) + random->RandomFloat( -0.5, 0.5 );
-	} while ( (x * x + y * y) > 1.0f );
-
 	Vector vecForward, vecRight, vecUp;
-	AngleVectors( vAngles, &vecForward, &vecRight, &vecUp );
+	AngleVectors(vAngles, &vecForward, &vecRight, &vecUp);
 
-	Vector vecDirShooting = vecForward +
-					x * flSpread * vecRight +
-					y * flSpread * vecUp;
+	for ( int iBullet = 0; iBullet < pWeaponInfo->m_iBullets; iBullet++ )
+	{
+		RandomSeed( iSeed + iBullet );
 
-	vecDirShooting.NormalizeInPlace();
+		float x, y;
+		do
+		{
+			x = random->RandomFloat(-0.5f, 0.5f) +
+				random->RandomFloat(-0.5f, 0.5f);
 
-	FireBulletsInfo_t info( 1 /*shots*/, vOrigin, vecDirShooting, Vector( flSpread, flSpread, FLOAT32_NAN), MAX_COORD_RANGE, pWeaponInfo->iAmmoType );
-	info.m_flDamage = pWeaponInfo->m_iDamage;
-	info.m_pAttacker = pPlayer;
+			y = random->RandomFloat(-0.5f, 0.5f) +
+				random->RandomFloat(-0.5f, 0.5f);
+		}
+		while ( x*x + y*y > 1.0f );
 
-	pPlayer->FireBullets( info );
+		Vector vecDirShooting =
+			vecForward +
+			x * flSpread * vecRight +
+			y * flSpread * vecUp;
 
+		vecDirShooting.NormalizeInPlace();
+
+		FireBulletsInfo_t info(
+			1,
+			vOrigin,
+			vecDirShooting,
+			Vector( flSpread, flSpread, FLOAT32_NAN ),
+			MAX_COORD_RANGE,
+			pWeaponInfo->iAmmoType );
+
+		info.m_flDamage = pWeaponInfo->m_iDamage;
+		info.m_pAttacker = pPlayer;
+
+		pPlayer->FireBullets( info );
+	
 #ifdef CLIENT_DLL
 	
 	{
@@ -360,7 +374,7 @@ void FX_FireBullets(
 		}
 	}
 #endif
-
+	}
 #if !defined (CLIENT_DLL)
 	lagcompensation->FinishLagCompensation( pPlayer );
 #endif

@@ -143,11 +143,11 @@ void CDODPlayerStats::FireGameEvent( IGameEvent *event )
 
 					Q_snprintf( szStatName, ARRAYSIZE( szStatName ), "%s.%s", s_WeaponAliasInfo[iWeapon], g_pszStatNames[iStat] );
 
-					if ( steamapicontext->SteamUserStats()->GetStat( szStatName, &iData ) )
-					{
-						// use Steam's value
-						m_WeaponStats[iWeapon].m_iStat[iStat] = iData;
-					}	
+					//if ( steamapicontext->SteamUserStats()->GetStat( szStatName, &iData ) )
+					//{
+					//	// use Steam's value
+					//	m_WeaponStats[iWeapon].m_iStat[iStat] = iData;
+					//}	
 				}					
 			}
 		}

@@ -583,6 +583,7 @@ bool CTFBot::IsHitScanWeapon( CWeaponDODBase *weapon ) const
 		case WEAPON_BAR:
 		case WEAPON_30CAL:
 		case WEAPON_C96CARBINE:
+		case WEAPON_TRENCHGUN:
 			return true;
 
 		default:
