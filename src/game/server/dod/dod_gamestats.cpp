@@ -65,6 +65,7 @@ int iNoDistStatWeapons[DOD_NUM_NODIST_STAT_WEAPONS] =
 	WEAPON_THOMPSON_PUNCH,
 	WEAPON_GREASEGUN_PUNCH,
 	WEAPON_MP40_PUNCH,
+	WEAPON_MEDKIT
 };
 
 int iWeaponBucketDistances[DOD_NUM_WEAPON_DISTANCE_BUCKETS-1] =
@@ -153,6 +154,7 @@ int iWeaponBucketDistances[DOD_NUM_WEAPON_DISTANCE_BUCKETS-1] =
 		"greasegun",					//WEAPON_GREASEGUN,
 		"c96carbine",					//WEAPON_C96CARBINE,
 		"trenchgun",					//WEAPON_M3,
+		"medkit",					//WEAPON_MEDKIT,
 
 		0,		// end of list marker
 	};

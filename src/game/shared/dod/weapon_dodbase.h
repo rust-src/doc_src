@@ -143,6 +143,7 @@ typedef enum
 	
 	// Shotgun
 	WEAPON_TRENCHGUN,
+	WEAPON_MEDKIT,
 
 	WEAPON_MAX,		// number of weapons weapon index
 

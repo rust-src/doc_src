@@ -93,7 +93,7 @@
 #define DOD_STATS_BLOB_VERSION 2		// changed to 2 for the orange box beta
 
 #define DOD_NUM_DISTANCE_STAT_WEAPONS	25
-#define DOD_NUM_NODIST_STAT_WEAPONS	15
+#define DOD_NUM_NODIST_STAT_WEAPONS	16
 #define DOD_NUM_WEAPON_DISTANCE_BUCKETS	10
 
 extern int iDistanceStatWeapons[DOD_NUM_DISTANCE_STAT_WEAPONS];

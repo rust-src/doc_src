@@ -10,6 +10,7 @@
 
 #if defined( CLIENT_DLL )
 	#define CWeaponSpade C_WeaponSpade
+	#define CWeaponMedkit C_WeaponMedkit
 	#include "c_dod_player.h"
 #else
 	#include "dod_player.h"
@@ -26,17 +27,11 @@ public:
 	DECLARE_ACTTABLE();
 
 	CWeaponSpade();
-
-	virtual void PrimaryAttack(void);
 	virtual Activity GetMeleeActivity(void) { return ACT_VM_PRIMARYATTACK; }
 	virtual DODWeaponID GetWeaponID(void) const { return WEAPON_SPADE; }
 
 private:
 	CWeaponSpade(const CWeaponSpade&);
-	
-#ifndef CLIENT_DLL
-	float m_flNextHealTime;
-#endif
 };
 
 IMPLEMENT_NETWORKCLASS_ALIASED(WeaponSpade, DT_WeaponSpade)
@@ -76,12 +71,73 @@ IMPLEMENT_ACTTABLE(CWeaponSpade);
 
 CWeaponSpade::CWeaponSpade()
 {
+
+}
+class CWeaponMedkit : public CWeaponDODBaseMelee
+{
+public:
+	DECLARE_CLASS(CWeaponMedkit, CWeaponDODBaseMelee);
+	DECLARE_NETWORKCLASS();
+	DECLARE_PREDICTABLE();
+	DECLARE_ACTTABLE();
+
+	CWeaponMedkit();
+
+	virtual void PrimaryAttack(void);
+	virtual Activity GetMeleeActivity(void) { return ACT_VM_PRIMARYATTACK; }
+	virtual DODWeaponID GetWeaponID(void) const { return WEAPON_MEDKIT; }
+
+private:
+	CWeaponMedkit(const CWeaponMedkit&);
+
+#ifndef CLIENT_DLL
+	float m_flNextHealTime;
+#endif
+};
+
+IMPLEMENT_NETWORKCLASS_ALIASED(WeaponMedkit, DT_WeaponMedkit)
+
+BEGIN_NETWORK_TABLE(CWeaponMedkit, DT_WeaponMedkit)
+END_NETWORK_TABLE()
+
+BEGIN_PREDICTION_DATA(CWeaponMedkit)
+END_PREDICTION_DATA()
+
+LINK_ENTITY_TO_CLASS(weapon_medkit, CWeaponMedkit);
+PRECACHE_WEAPON_REGISTER(weapon_medkit);
+
+acttable_t CWeaponMedkit::m_acttable[] =
+{
+	{ ACT_DOD_STAND_AIM,				ACT_DOD_STAND_AIM_SPADE,			false },
+	{ ACT_DOD_CROUCH_AIM,				ACT_DOD_CROUCH_AIM_SPADE,			false },
+	{ ACT_DOD_CROUCHWALK_AIM,			ACT_DOD_CROUCHWALK_AIM_SPADE,		false },
+	{ ACT_DOD_WALK_AIM,					ACT_DOD_WALK_AIM_SPADE,				false },
+	{ ACT_DOD_RUN_AIM,					ACT_DOD_RUN_AIM_SPADE,				false },
+	{ ACT_PRONE_IDLE,					ACT_DOD_PRONE_AIM_SPADE,			false },
+	{ ACT_PRONE_FORWARD,				ACT_DOD_PRONEWALK_AIM_SPADE,		false },
+	{ ACT_DOD_STAND_IDLE,				ACT_DOD_STAND_AIM_SPADE,			false },
+	{ ACT_DOD_CROUCH_IDLE,				ACT_DOD_CROUCH_AIM_SPADE,			false },
+	{ ACT_DOD_CROUCHWALK_IDLE,			ACT_DOD_CROUCHWALK_AIM_SPADE,		false },
+	{ ACT_DOD_WALK_IDLE,				ACT_DOD_WALK_AIM_SPADE,				false },
+	{ ACT_DOD_RUN_IDLE,					ACT_DOD_RUN_AIM_SPADE,				false },
+	{ ACT_SPRINT,						ACT_DOD_SPRINT_AIM_SPADE,			false },
+	{ ACT_RANGE_ATTACK2,				ACT_DOD_PRIMARYATTACK_SPADE,		false },
+	{ ACT_DOD_SECONDARYATTACK_CROUCH,	ACT_DOD_PRIMARYATTACK_CROUCH_SPADE,	false },
+	{ ACT_DOD_SECONDARYATTACK_PRONE,	ACT_DOD_PRIMARYATTACK_PRONE_SPADE,	false },
+	{ ACT_DOD_HS_IDLE,					ACT_DOD_HS_IDLE_STICKGRENADE,		false },
+	{ ACT_DOD_HS_CROUCH,				ACT_DOD_HS_CROUCH_STICKGRENADE,		false },
+};
+
+IMPLEMENT_ACTTABLE(CWeaponMedkit);
+
+CWeaponMedkit::CWeaponMedkit()
+{
 #ifndef CLIENT_DLL
 	m_flNextHealTime = 0.0f;
 #endif
 }
 
-void CWeaponSpade::PrimaryAttack()
+void CWeaponMedkit::PrimaryAttack()
 {
 	CDODPlayer* pPlayer = GetDODPlayerOwner();
 	if (!pPlayer)
@@ -148,7 +204,4 @@ void CWeaponSpade::PrimaryAttack()
 		return; // Skip melee if healing succeeds
 	}
 #endif
-
-	// Fall back to normal melee attack
-	MeleeAttack(60, MELEE_DMG_EDGE, 0.2f, 0.4f);
 }

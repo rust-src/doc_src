@@ -160,6 +160,7 @@ const char * s_WeaponAliasInfo[] =
 	"c96carbine",			//WEAPON_C96CARBINE,
 
 	"trenchgun", 				//WEAPON_M3,
+	"medkit", 				//WEAPON_M3,
 	NULL,		// end of list marker
 };
 
