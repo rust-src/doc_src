@@ -45,16 +45,18 @@ DodVoiceCommand_t g_VoiceCommands[] =
 	{"voice_usebazooka",	"UseRocket",		PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_usebazooka",		"#Voice_subtitle_usepschreck",		"#Voice_subtitle_usepiat"},
 	{"voice_bazookaspotted","RocketSpotted",	PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_pschreckspotted",	"#Voice_subtitle_bazookaspotted",	"#Voice_subtitle_pschreckspotted"},
 
-	// Voice commands that aren't in a menu
+	// Voice menu 4 
 	{"voice_gogogo",		"Moveout",			PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_attack",			"#Voice_subtitle_moveout"},
 	{"voice_medic",			"Medic",			PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_medic" },
 	{"voice_coverflanks",	"CoverFlanks",		PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_coverflanks" },
-	{"voice_tank",			"TankAhead",		PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_tigerahead",		"#Voice_subtitle_tankahead*" },
+	{"voice_tank",			"TankAhead",		PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_tigerahead",		"#Voice_subtitle_tankahead" },
 	{"voice_takeammo",		"TakeAmmo",			PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_takeammo" },
 	{"voice_movewithtank",	"MoveWithTank",		PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_movewithtank" },
 	{"voice_wtf",			"WhiskeyTangoFoxtrot",	PLAYERANIMEVENT_HANDSIGNAL,		"#Voice_subtitle_wtf" },
 	{"voice_fireleft",		"TakingFireLeft",	PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_fireleft" },
 	{"voice_fireright",		"TakingFireRight",	PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_fireright" },
+
+	// Voice commands that aren't in a menu
 	{"voice_mgahead",		"MgAhead",			PLAYERANIMEVENT_HANDSIGNAL,			"#Voice_subtitle_mgahead" },
 	{"voice_enemyahead",	"EnemyAhead",		PLAYERANIMEVENT_HANDSIGNAL,		"#Voice_subtitle_enemyahead" },
 	{"voice_fallback",		"FallBack",			PLAYERANIMEVENT_HANDSIGNAL,		"#Voice_subtitle_fallback" },

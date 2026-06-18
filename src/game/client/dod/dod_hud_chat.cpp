@@ -27,10 +27,12 @@ Color g_DoDColorGrey( 200, 200, 200, 255 );
 static void voicemenu1_f( void );
 static void voicemenu2_f( void );
 static void voicemenu3_f( void );
+static void voicemenu4_f( void );
 
 static ConCommand voicemenu1( "voicemenu1", voicemenu1_f, "Opens a voice menu" );
 static ConCommand voicemenu2( "voicemenu2", voicemenu2_f, "Opens a voice menu" );
 static ConCommand voicemenu3( "voicemenu3", voicemenu3_f, "Opens a voice menu" );
+static ConCommand voicemenu4( "voicemenu4", voicemenu4_f, "Opens a voice menu" );
 
 
 //
@@ -75,6 +77,7 @@ void OpenVoiceMenu( int index )
 	case 1:
 	case 2:
 	case 3:
+	case 4:
 		{
 			char *pszNation;
 
@@ -91,7 +94,6 @@ void OpenVoiceMenu( int index )
 
 			char szMenu[128];
 			Q_snprintf( szMenu, sizeof(szMenu), "#Menu_%sVoice%c", pszNation, cMenuNumber );
-
 			pMenu->ShowMenu( szMenu, 0x3FF );
 
 			g_ActiveVoiceMenu = index;
@@ -118,7 +120,10 @@ static void voicemenu3_f( void )
 {
 	OpenVoiceMenu( 3 );
 }
-
+static void voicemenu4_f(void)
+{
+	OpenVoiceMenu( 4 );
+}
 CON_COMMAND( menuselect, "menuselect" )
 {
 	if ( args.ArgC() < 2 )
@@ -131,6 +136,7 @@ CON_COMMAND( menuselect, "menuselect" )
 	case 1: //RadioA
 	case 2:
 	case 3:
+	case 4:
 		{
 			// check for cancel
 			if( iSlot == 10 )
@@ -142,7 +148,7 @@ CON_COMMAND( menuselect, "menuselect" )
 			// find the voice command index from the menu and slot
 			int iVoiceCommand = (g_ActiveVoiceMenu-1) * 9 + (iSlot-1);
 
-			Assert( iVoiceCommand >= 0 && iVoiceCommand < (3*9) );
+			Assert( iVoiceCommand >= 0 && iVoiceCommand < ARRAYSIZE(g_VoiceCommands) );
 
 			// emit a voice command
 			engine->ClientCmd( g_VoiceCommands[iVoiceCommand].pszCommandName );
