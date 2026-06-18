@@ -650,7 +650,7 @@ void CBasePlayer::DestroyViewModels( void )
 	}
 }
 
-#if defined(MAPBASE) && defined(HL2_DLL)
+#if defined(MAPBASE) && defined(HL2_DLL) || defined(DOD_DLL)
 extern char g_szDefaultHandsModel[MAX_PATH];
 extern int g_iDefaultHandsSkin;
 extern int g_iDefaultHandsBody;
@@ -678,7 +678,11 @@ void CBasePlayer::CreateHandModel(int index, int iOtherVm)
 		vm->SetOwner(this);
 		vm->SetIndex(index);
 
+#ifdef DOD_DLL
+		vm->SetModel("models/weapons/c_arms_dod.mdl");
+#else
 		vm->SetModel( g_szDefaultHandsModel );
+#endif
 		vm->m_nSkin = g_iDefaultHandsSkin;
 		vm->m_nBody = g_iDefaultHandsBody;
 
@@ -5465,7 +5469,7 @@ void CBasePlayer::Spawn( void )
 	enginesound->SetPlayerDSP( user, 0, false );
 
 	CreateViewModel();
-#if defined(MAPBASE) && defined(HL2_DLL)
+#if defined(MAPBASE) && defined(HL2_DLL) || defined(DOD_DLL)
 	CreateHandModel();
 #endif
 
@@ -5533,6 +5537,7 @@ void CBasePlayer::Spawn( void )
 	}
 
 	m_weaponFiredTimer.Invalidate();
+
 }
 
 void CBasePlayer::Activate( void )

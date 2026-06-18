@@ -421,6 +421,8 @@ void CDODPlayer::Precache()
 
 	PrecacheModel ( "sprites/glow01.vmt" );
 
+	PrecacheModel("models/c_arms_dod.mdl");
+
 	BaseClass::Precache();
 }
 

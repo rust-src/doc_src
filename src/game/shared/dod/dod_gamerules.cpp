@@ -371,6 +371,7 @@ static CDODViewVectors g_DODViewVectors(
 		"dod_round_timer",
 		"func_precipitation",
 		"func_team_wall",
+		"hand_viewmodel",
 		"", // END Marker
 	};
 
