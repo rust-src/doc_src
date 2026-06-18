@@ -98,6 +98,8 @@ void CWeaponDODBaseGun::Precache()
 	PrecacheModel( "models/shells/shell_medium.mdl" );
 	PrecacheModel( "models/shells/shell_large.mdl" );
 	PrecacheModel( "models/shells/garand_clip.mdl" );
+	// Precache muzzle smokes
+	PrecacheParticleSystem("weapon_muzzle_smoke");
 }
 
 void CWeaponDODBaseGun::PrimaryAttack()
@@ -184,6 +186,16 @@ bool CWeaponDODBaseGun::DODBaseGunFire()
 		GetWeaponAccuracy( pPlayer->GetAbsVelocity().Length2D() ) );
 
 	DoFireEffects();
+
+#ifdef CLIENT_DLL
+	// Muzzle smoke particle 
+	C_BaseCombatWeapon* pWeapon = GetActiveWeapon();
+	if (pWeapon)
+	{
+		pWeapon->ParticleProp()->Create("weapon_muzzle_smoke", PATTACH_POINT_FOLLOW, 1);
+		//NOTENOTE: We do not chain to the base here
+	}
+#endif
 
 #ifndef CLIENT_DLL
 	IGameEvent * event = gameeventmanager->CreateEvent( "dod_stats_weapon_attack" );
