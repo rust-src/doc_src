@@ -2062,7 +2062,7 @@ CON_COMMAND_F( doc_bot_add, "Add a bot.", FCVAR_GAMEDLL )
 			else
 				Q_snprintf( szClassName, sizeof szClassName, "random" );
 
-			bot->HandleCommand_JoinClass(RandomInt(0, 5));
+			bot->HandleCommand_JoinClass(RandomInt(0, 7));
 		}
 
 		TheTFBots().OnForceAddedBots( count );

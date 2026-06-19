@@ -42,6 +42,7 @@ private:
 
 	void PaintGrenadeAmmo( CWeaponDODBase *pWpn );
 	void PaintBazookaAmmo( CWeaponDODBase *pWpn );
+	void PaintShotgunAmmo(CWeaponDODBase* pWpn);
 	void PaintMGAmmo( CWeaponDODBase *pWpn );
 	void PaintGunAmmo( CWeaponDODBase *pWpn );
 	void PaintRifleGrenadeAmmo( CWeaponDODBase *pWpn );
@@ -308,7 +309,50 @@ void CHudAmmo::PaintBazookaAmmo( CWeaponDODBase *pWpn )
 		DrawText( buf, xpos, ypos + ( pExtraIcon->Height() * 0.75 ), m_clrIcon );
 	}
 }
+void CHudAmmo::PaintShotgunAmmo(CWeaponDODBase* pWpn)
+{
+	const CHudTexture* pFullClip = pWpn->GetSpriteAmmo();
+	const CHudTexture* pExtraClip = pWpn->GetSpriteAmmo2();
 
+	int xpos = 0;
+	int ypos = 0;
+
+	int x, y, w, h;
+	GetBounds(x, y, w, h);
+
+	if (pFullClip)
+	{
+		xpos = w - pFullClip->Width() * 3;
+		ypos = h - pFullClip->Height();
+		pFullClip->DrawSelf(xpos, ypos, m_clrIcon);
+
+		//Haxoration! The box that contains the numbers must be in the same position
+		// in both the webley and mg34/mg42/30cal sprites.
+		DrawNumbers(m_iAmmo, xpos + 36, ypos + pFullClip->Height() - 16);
+
+		xpos += pFullClip->Width();
+		ypos += pFullClip->Height();
+	}
+
+	//how many full or partially full clips do we have?
+	int clips = m_iAmmo2 / pWpn->GetMaxClip1();
+
+	//account for the partial clip, if it exists
+	if( clips * pWpn->GetMaxClip1() < m_iAmmo2 )
+		clips++;
+
+	if( pExtraClip && clips > 0 )
+	{
+		//align the extra clip on the same baseline as the large clip
+		ypos -= pExtraClip->Height();
+
+		pExtraClip->DrawSelf( xpos, ypos, Color(255,255,255,255) );
+
+		char buf[16];
+		Q_snprintf( buf, sizeof(buf), "x %d", clips );
+		DrawText( buf, xpos + pExtraClip->Width(), ypos + pExtraClip->Height() / 2, m_clrIcon );
+	}
+}
 void CHudAmmo::PaintMGAmmo( CWeaponDODBase *pWpn )
 {
 	const CHudTexture *pFullClip = pWpn->GetSpriteAmmo();
@@ -449,6 +493,10 @@ void CHudAmmo::Paint( void )
 
 	case WPN_TYPE_MG:
 		PaintMGAmmo(pWpn);
+		break;
+
+	case WPN_TYPE_SHOTGUN:
+		PaintShotgunAmmo(pWpn);
 		break;
 
 	default:

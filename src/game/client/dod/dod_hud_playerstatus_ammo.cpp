@@ -634,6 +634,10 @@ void CDoDHudAmmo::Paint( void )
 		PaintMGAmmo( pWpn );
 		break;
 
+	case WPN_TYPE_SHOTGUN:
+		PaintMGAmmo(pWpn);
+		break;
+
 	case WPN_TYPE_CAMERA:
 		break;
 

@@ -947,6 +947,7 @@ void CDODPlayer::CheatImpulseCommands( int iImpulse )
 				GiveAmmo( 1000, DOD_AMMO_30CAL );			
 				GiveAmmo( 1000, DOD_AMMO_MG42 );			
 				GiveAmmo( 1000, DOD_AMMO_ROCKET );		
+				GiveAmmo( 1000, DOD_AMMO_SHOTGUN );		
 
 				gEvilImpulse101 = false;
 			}

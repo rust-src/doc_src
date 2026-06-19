@@ -27,10 +27,11 @@
 #define WPN_TYPE_SIDEARM		(1<<10)	//carbine - secondary weapons
 #define WPN_TYPE_RIFLEGRENADE	(1<<11)
 #define WPN_TYPE_BOMB			(1<<12)
+#define WPN_TYPE_SHOTGUN		(1<<13)
 #define WPN_TYPE_UNKNOWN		(1<<13)
 #define WPN_TYPE_CAMERA			(1<<12)
 
-#define WPN_MASK_GUN	( WPN_TYPE_PISTOL | WPN_TYPE_RIFLE | WPN_TYPE_SNIPER | WPN_TYPE_SUBMG | WPN_TYPE_MG | WPN_TYPE_SIDEARM )
+#define WPN_MASK_GUN	( WPN_TYPE_PISTOL | WPN_TYPE_RIFLE | WPN_TYPE_SNIPER | WPN_TYPE_SUBMG | WPN_TYPE_MG | WPN_TYPE_SIDEARM | WPN_TYPE_SHOTGUN)
 
 //--------------------------------------------------------------------------------------------------------
 class CDODWeaponInfo : public FileWeaponInfo_t

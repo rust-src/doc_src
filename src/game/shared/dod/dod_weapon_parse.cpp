@@ -144,6 +144,10 @@ void CDODWeaponInfo::Parse( KeyValues *pKeyValuesData, const char *szWeaponName 
 	{
 		m_WeaponType = WPN_TYPE_BOMB;
 	}
+	else if (Q_stricmp(pTypeString, "Shotgun") == 0)
+	{
+		m_WeaponType = WPN_TYPE_SHOTGUN;
+	}
 	else
 	{
 		Assert( false );

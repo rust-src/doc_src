@@ -4900,6 +4900,8 @@ CAmmoDef* GetAmmoDef()
 		def.AddAmmoType( DOD_AMMO_COLT,		DMG_BULLET, TRACER_NONE,	0, 0, 21,	5000, 10, 14 );
 		def.AddAmmoType( DOD_AMMO_P38,		DMG_BULLET, TRACER_NONE,	0, 0, 24,	5000, 10, 14 );
 		def.AddAmmoType( DOD_AMMO_C96,		DMG_BULLET, TRACER_NONE,	0, 0, 60,	5000, 10, 14 );
+
+		def.AddAmmoType(DOD_AMMO_SHOTGUN,		DMG_BULLET, TRACER_NONE,	0, 0, 45,	5000, 10, 14 );
 		
 		//rifles
 		def.AddAmmoType( DOD_AMMO_GARAND,		DMG_BULLET, TRACER_NONE,	0, 0, 88,		9000, 10, 14 );

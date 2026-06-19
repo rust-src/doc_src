@@ -135,6 +135,7 @@ PRECACHE_WEAPON_REGISTER(weapon_trenchgun);
 CWeaponTrenchGun::CWeaponTrenchGun()
 {
 	m_flPumpTime = 0;
+	m_bReloadsSingly = true;
 }
 
 void CWeaponTrenchGun::PrimaryAttack()
@@ -241,6 +242,7 @@ bool CWeaponTrenchGun::Reload()
 
 #ifdef GAME_DLL
 		//pPlayer->DoAnimationEvent(PLAYERANIMEVENT_RELOAD_START);
+		pPlayer->DoAnimationEvent(PLAYERANIMEVENT_RELOAD);
 #endif
 
 		return true;
@@ -270,9 +272,6 @@ bool CWeaponTrenchGun::Reload()
 		// Add them to the clip
 		m_iClip1 += 1;
 
-#ifdef GAME_DLL
-		//SendReloadEvents();
-#endif
 
 		CDODPlayer* pPlayer = ToDODPlayer(GetPlayerOwner());
 
